@@ -12,55 +12,10 @@
   ];
   nix.settings.experimental-features = ["nix-command" "flakes"];
   #Nvidia stuff
-  hardware.graphics = {
-    enable = true;
-  };
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["displaylink" "modesetting" "nvidia"];
+  #services.xserver.videoDrivers = ["displaylink" "modesetting" "nvidia"];
   programs.steam.enable = true;
-  hardware.nvidia = {
-    # Modesetting is required.
-    modesetting.enable = true;
-
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
-    # of just the bare essentials.
-    powerManagement.enable = false;
-
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of
-    # supported GPUs is at:
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Only available from driver 515.43.04+
-    open = true;
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-  hardware.nvidia.prime = {
-    sync.enable = true;
-    # Make sure to use the correct Bus ID values for your system!
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
-    # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
-  };
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 10;
 
   networking.hostName = "nixos"; # Define your hostname.
   networking.hosts = {
@@ -75,19 +30,6 @@
   time.timeZone = "Europe/Paris";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fr_FR.UTF-8";
-    LC_IDENTIFICATION = "fr_FR.UTF-8";
-    LC_MEASUREMENT = "fr_FR.UTF-8";
-    LC_MONETARY = "fr_FR.UTF-8";
-    LC_NAME = "fr_FR.UTF-8";
-    LC_NUMERIC = "fr_FR.UTF-8";
-    LC_PAPER = "fr_FR.UTF-8";
-    LC_TELEPHONE = "fr_FR.UTF-8";
-    LC_TIME = "fr_FR.UTF-8";
-  };
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -107,9 +49,6 @@
     layout = "fr";
     variant = "";
   };
-
-  # Configure console keymap
-  console.keyMap = "fr";
 
   # Enable CUPS to print documents.
   services.avahi = {
@@ -165,22 +104,12 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim
-    displaylink
-    gparted
-    ntfs3g
-    luajitPackages.plenary-nvim
-  ];
   programs.ssh.startAgent = true;
   programs.kdeconnect.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.waydroid.enable = true;
   programs.nix-ld.enable = true;
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.hack
-  ];
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
