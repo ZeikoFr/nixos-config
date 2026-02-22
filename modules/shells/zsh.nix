@@ -1,0 +1,21 @@
+{
+  flake.modules.homeManager.base = hmArgs: {
+    programs.foot = {
+      enable = true;
+      server.enable = false; # optional, if you want foot in client mode
+      settings = {
+        main = {
+          font = "Hack Nerd Font Mono:size=10"; # Font setting
+          dpi-aware = "yes";
+          selection-target = "both";
+        };
+        colors = {
+          alpha = 0.95; # Transparency setting
+        };
+        bell = {
+          system = false;
+        };
+      };
+    };
+  };
+}

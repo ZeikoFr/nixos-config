@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.firefox = {
+  flake.modules.homeManager.gui = {
     programs.firefox = {
       enable = true;
       policies = {
