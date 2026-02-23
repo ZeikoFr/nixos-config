@@ -7,10 +7,11 @@
         config.global.warn_timeout = 0;
         enableZshIntegration = true;
       };
+
+      git.ignores = [
+        ".envrc"
+        ".direnv"
+      ];
     };
-    git.ignores = [
-      ".envrc"
-      ".direnv"
-    ];
   };
 }
