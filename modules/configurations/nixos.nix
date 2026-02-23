@@ -15,7 +15,12 @@
 
   config.flake = {
     nixosConfigurations = lib.flip lib.mapAttrs config.configurations.nixos (
-      name: {module}: lib.nixosSystem {modules = [module];}
+      name: {module}:
+        lib.nixosSystem {
+          # ← ADD THESE TWO LINES
+          system = "x86_64-linux";
+          modules = [module];
+        }
     );
 
     checks =

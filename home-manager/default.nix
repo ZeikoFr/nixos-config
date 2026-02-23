@@ -7,7 +7,7 @@
   imports = [
     ../modules/home-manager/default.nix
   ];
-  home.username = "gaupee";
+  home.username = "zeiko";
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
