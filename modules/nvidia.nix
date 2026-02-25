@@ -4,18 +4,7 @@
     config,
     ...
   }: {
-    # PROPRIERARY DRIVER #######################################################################
-    nixpkgs.config.cudaSupport = true;
-    services.xserver.videoDrivers = ["nvidia"];
-    environment.systemPackages = [pkgs.nvtopPackages.nvidia];
-    programs.sway.package = pkgs.sway.override {extraOptions = ["--unsupported-gpu"];};
-    ############################################################################################
-
-    # This machine can run cuda tests
-    programs.nix-required-mounts = {
-      enable = true;
-      presets.nvidia-gpu.enable = true;
-    };
+    services.xserver.videoDrivers = ["modesetting" "nvidia"];
 
     hardware = {
       graphics = {
@@ -52,4 +41,8 @@
       };
     };
   };
+  nixpkgs.config.allowUnfreePackages = [
+    "nvidia-x11"
+    "nvidia-settings"
+  ];
 }

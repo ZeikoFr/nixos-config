@@ -2,10 +2,9 @@
   flake.modules = {
     nixos.efi.boot.loader = {
       efi.canTouchEfiVariables = true;
-      grub = {
+      systemd-boot = {
         enable = true;
-        device = lib.mkDefault "nodev";
-        zfsSupport = true;
+        configurationLimit = 10;
       };
     };
 
